@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام الحوكمة الكامل - مبرة دار الخير</title>
+    <title>لوحة تحكم متابعة إنجاز خطة الحوكمة</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -78,7 +78,7 @@
 <div id="loginOverlay">
     <div class="login-card">
         <h2 style="color: var(--primary)">🔐 بوابة الحوكمة</h2>
-        <p>مبرة دار الخير - 2026</p>
+        <p>نظام متابعة إنجاز الخطط</p>
         <input type="password" id="passCode" placeholder="كلمة المرور" onkeypress="if(event.key === 'Enter') login()">
         <button onclick="login()" class="btn" style="background: var(--primary); color: white; width: 100%; margin-top: 10px;">دخول للنظام</button>
         <p id="loginError" style="color: red; display: none; margin-top: 10px;">كلمة المرور غير صحيحة!</p>
@@ -89,7 +89,7 @@
     <div class="container">
         <header>
             <div>
-                <h1 style="color: var(--primary); margin:0;">📊 لوحة تحكم الحوكمة التنفيذية</h1>
+                <h1 style="color: var(--primary); margin:0;">📊 لوحة تحكم متابعة إنجاز خطة الحوكمة</h1>
                 <p id="userRoleLabel" style="font-weight:600; color: var(--secondary); margin-top:5px;"></p>
             </div>
             <button onclick="location.reload()" class="btn" style="background:#fee2e2; color:#b91c1c">تسجيل الخروج</button>
@@ -186,11 +186,8 @@
     }
 
     async function fetchData() {
-        // جلب البيانات مع استثناء شعار النظام
         const { data } = await supabaseClient.from('governance_tasks').select('*').neq('resp', 'SYSTEM_LOGO');
         if (data) {
-            // ترتيب المهام بحسب تاريخ الاستحقاق (الأقدم أولاً)
-            // المهام التي ليس لها تاريخ توضع في الأخير
             allTasks = data.sort((a, b) => {
                 if (!a.due) return 1;
                 if (!b.due) return -1;
